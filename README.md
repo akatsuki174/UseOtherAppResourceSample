@@ -1,0 +1,2 @@
+# UseOtherAppResourceSample
+他のアプリの文字列、画像、アクティビティを使う方法のサンプル
