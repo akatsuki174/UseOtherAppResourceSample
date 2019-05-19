@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">UseOtherAppResourceSample</string>
+    <string name="showString">文字列表示</string>
 </resources>
