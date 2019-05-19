@@ -18,12 +18,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    private fun getOtherAppString() {
+    private fun showOtherAppString() {
         val res: Resources?
         try {
             val packageName = "com.android.settings"
             res = this.packageManager.getResourcesForApplication(packageName)
-            val resourceId = res?.getIdentifier("$packageName:string/clear_activities", null, null)
+            val resourceId = res?.getIdentifier("clear_activities", "string", packageName)
             if (resourceId != 0 && resourceId != null) {
                 val text = this.packageManager.getText(packageName, resourceId, null)
                 Toast.makeText(this, text, Toast.LENGTH_LONG).show()
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getOtherAppImage() {
+    private fun showOtherAppImage() {
         val res: Resources?
         try {
             val packageName = "com.hogehoge"
@@ -54,10 +54,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onStringButtonClick(view: View) {
-        getOtherAppString()
+        showOtherAppString()
     }
 
     fun onImageButtonClick(view: View) {
-        getOtherAppImage()
+        showOtherAppImage()
     }
 }
