@@ -19,38 +19,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showOtherAppString() {
-        val res: Resources?
-        try {
-            val packageName = "com.android.settings"
-            res = this.packageManager.getResourcesForApplication(packageName)
-            val resourceId = res?.getIdentifier("clear_activities", "string", packageName)
-            if (resourceId != 0 && resourceId != null) {
-                val text = this.packageManager.getText(packageName, resourceId, null)
-                Toast.makeText(this, text, Toast.LENGTH_LONG).show()
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
+        val packageName = "com.android.settings"
+        val res = getResource(packageName)
+        val resourceId = res?.getIdentifier("clear_activities", "string", packageName)
+        if (resourceId != 0 && resourceId != null) {
+            val text = this.packageManager.getText(packageName, resourceId, null)
+            Toast.makeText(this, text, Toast.LENGTH_LONG).show()
         }
     }
 
     private fun showOtherAppImage() {
-        val res: Resources?
+        val packageName = "com.hogehoge"
+        val res = getResource(packageName)
+        val resourceId = res?.getIdentifier("ic_launcher", "mipmap", packageName)
+        val drawable = resourceId?.let { ResourcesCompat.getDrawable(res, it, null) }
+        if (resourceId != 0 && resourceId != null) {
+            val toast = Toast(this)
+            toast.duration = Toast.LENGTH_LONG
+            val layout = layoutInflater.inflate(R.layout.custom_toast, linearLayout)
+            layout.customToastImage.setImageDrawable(drawable)
+            toast.view = layout
+            toast.show()
+        }
+    }
+
+    private fun getResource(packageName: String): Resources? {
         try {
-            val packageName = "com.hogehoge"
-            res = this.packageManager.getResourcesForApplication(packageName)
-            val resourceId = res?.getIdentifier("ic_launcher", "mipmap", packageName)
-            val drawable = resourceId?.let { ResourcesCompat.getDrawable(res, it, null) }
-            if (resourceId != 0 && resourceId != null) {
-                val toast = Toast(this)
-                toast.duration = Toast.LENGTH_LONG
-                val layout = layoutInflater.inflate(R.layout.custom_toast, linearLayout)
-                layout.customToastImage.setImageDrawable(drawable)
-                toast.view = layout
-                toast.show()
-            }
+            return this.packageManager.getResourcesForApplication(packageName)
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
+        return null
     }
 
     fun onStringButtonClick(view: View) {
